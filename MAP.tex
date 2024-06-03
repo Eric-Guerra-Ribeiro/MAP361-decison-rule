@@ -1,14 +1,36 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
-
+\usepackage{amsmath}
 \title{MAP Python}
-\author{elkhaderamjad }
+\author{ }
 \date{May 2024}
 
 \begin{document}
-Par linéarité de l'espérance $$E(\hat{\theta_{n}) = \frac{1}{n}\sum_{i=1}^{n}E(X_{i}) = \frac{1}{n}\sum_{i=1}^{n}\theta = \theta$$
-D'après l'inégalité de Bienaymé-Tchebycheff :
-$$P(|\hat{\theta_{n}} - $$
 
 
+T1) 1) Soit $\epsilon > 0$,
+on considère les événements $A_{n}=(|\hat{\theta_{n}} - \theta |>\epsilon)$
+
+
+$\hat{\theta_{n}} \in L^{2}$ car les $X_{i}$ sont dans $L^{2}$, de plus, puisqu'ils sont indépendants :
+$$V(\hat{\theta_{n}}) = (\frac{1}{n})^{2}\sum_{i=1}^{n}V(X_{i}) = \frac{1}{n^{2}}\sum_{i=1}^{n}1 = \frac{1}{n}$$
+$$P(A_{n}) =  P(|\hat{\theta_{n}} - \theta |>\epsilon) = P( \theta - \epsilon < \hat{\theta_{n}} < \theta + \epsilon) =
+\frac{1}{\sqrt{2\pi V(\hat{\theta_{n}}) }}\displaystyle \int_{\theta - \epsilon}^{\theta + \epsilon} e^{-\frac{(x-\theta)^{2}}{2V(\hat{\theta_{n}})}} \, \mathrm{d}x   $$
+Or, une intégration par parties permet d'obtenir l'inégalité, pour $\epsilon < |\theta|$ si $\theta \neq 0$ :
+$$
+ \frac{1}{\sqrt{2\pi V(\hat{\theta_{n}}) }}\displaystyle \int_{\theta - \epsilon}^{\theta + \epsilon} e^{-\frac{(x-\theta)^{2}}{2V(\hat{\theta_{n}})}} \, \mathrm{d}x = \frac{1}{\sqrt{2\pi V(\hat{\theta_{n}}) }}(\left[\frac{-V(\hat{\theta_{n}})}{x}e^{-\frac{(x-\theta)^{2}}{2V(\hat{\theta_{n}})}}
+\right]_{\theta - \epsilon}^{\theta + \epsilon} - \displaystyle \int_{\theta - \epsilon}^{\theta + \epsilon}\frac{V(\hat{\theta_{n}})}{x^{2}}e^{-\frac{(x-\theta)^{2}}{2V(\hat{\theta_{n}})}}\mathrm{d}x$$ 
+$$ \frac{1}{\sqrt{2\pi V(\hat{\theta_{n}}) }}\displaystyle \int_{\theta - \epsilon}^{\theta + \epsilon} e^{-\frac{(x-\theta)^{2}}{2V(\hat{\theta_{n}})}} \, \mathrm{d}x \leq \frac{1}{\sqrt{2\pi n}}) (\left[\frac{-1}{x}e^{-n\frac{(x-\theta)^{2}}{2}}
+\right]_{\theta - \epsilon}^{\theta + \epsilon} \leq \frac{1}{\sqrt{2\pi n}} (\frac{1}{\theta - \epsilon}-\frac{1}{\theta + \epsilon})e^{-n\frac{\epsilon^{2}}{2}} $$
+Et cette inégalité reste vraie pour $\theta = 0$
+
+
+Par comparaison, $P(A_{n})$ est le terme général d'une série convergente, ce qui nous permet d'appliquer le lemme de Borel-Cantelli qui donne que $P(\limsup_{n}An ) = 0$, ce qui équivalent à ce que $\hat{\theta_{n}}$ converge presque sûrement vers $\theta$.
+\vspace{13pt}
+
+2) $\hat{\theta_{n}}$ suit une loi normale $\mathcal{N}(\theta,\,\frac{1}{n})$ comme combinaison linéaire de variables gaussiennes indépendantes, donc $\sqrt{n}(\hat{\theta_{n}} - \theta) = \frac{\hat{\theta_{n}} - E(\hat{\theta_{n}})}{\sigma(\hat{\theta_{n}})}$ suit une loi normale centrée réduite.
+\vspace{13pt}
+
+3) On cherche $K_{\alpha}$ tel que $P_{\theta = \theta_{0}}(1_{(\hat{\theta_{n}} < K_{\alpha})} = 1 ) = P_{\theta = \theta_{0}}(\hat{\theta_{n}} < K_{\alpha}) = \alpha$ i.e $$P_{\theta = \theta_{0}}(\sqrt{n}(\hat{\theta_{n}} - \theta) < \sqrt{n}(K_{\alpha} - \theta_{0}))$$ c'est-à-dire : $$ \Phi(\sqrt{n}(K_{\alpha} - \theta_{0}))= \alpha
+$$ d'où $$K_{a} = \frac{1}{\sqrt{n}}\Phi(\alpha)^{-1} + \theta_{0}$$
 \end{document}
